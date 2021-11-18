@@ -6,9 +6,10 @@ public class Deck {
     private List<String> rank = List.of("two", "three", "four", "five", "six",
             "seven", "eight", "nine", "ten", "Jack", "Queen", "King", "Ace");
     private List<String> suits = List.of("Hearts", "Diamonds", "Clubs", "Spades");
-    LinkedHashMap<String,Integer> deckOfCards = new LinkedHashMap<>();
+    Map<String,Integer> deckOfCards = new HashMap<>();
     List<String> keys;
     List<Integer> values;
+
 
 
     private String concat;
@@ -29,26 +30,32 @@ public class Deck {
     }
 
     public void shuffle() {
-        int points = 0;
+
         keys =  new ArrayList(deckOfCards.keySet());
         Collections.shuffle(keys);
-        if(String.valueOf(keys).equals("two")) points=2;
-        if(String.valueOf(keys).equals("three")) points=3;
-        if(String.valueOf(keys).equals("four")) points=4;
-        if(String.valueOf(keys).equals("five")) points=5;
-        if(String.valueOf(keys).equals("six")) points=6;
-        if(String.valueOf(keys).equals("seven")) points=7;
-        if(String.valueOf(keys).equals("eight")) points=8;
-        if(String.valueOf(keys).equals("nine")) points=9;
-        if(String.valueOf(keys).equals("ten")) points=10;
-        if(String.valueOf(keys).equals("Jack")) points=10;
-        if(String.valueOf(keys).equals("Queen")) points=10;
-        if(String.valueOf(keys).equals("King")) points=10;
-        if(String.valueOf(keys).equals("Ace")) points=11;
+
+        for(String card:keys)
+        {
+            int points = 0;
+
+            if(card.contains("two")) points=2;
+            else if(card.contains("three")) points=3;
+            else if(card.contains("four")) points=4;
+            else if(card.contains("five")) points=5;
+            else if(card.contains("six")) points=6;
+            else if(card.contains("seven")) points=7;
+            else if(card.contains("eight")) points=8;
+            else if(card.contains("nine")) points=9;
+            else if(card.contains("ten")) points=10;
+            else if(card.contains("Jack")) points=10;
+            else if(card.contains("Queen")) points=10;
+            else if(card.contains("King")) points=10;
+            else if(card.contains("Ace")) points=11;
+            deckOfCards.put(card,points);
+        }
 
 
-        deckOfCards.put(String.valueOf(keys),points);
-        values = new ArrayList<>(deckOfCards.values());
+
 
 
     }
@@ -60,7 +67,7 @@ public class Deck {
 
     public List<Integer> getValueOfCards()
     {
-
+        values = new ArrayList(deckOfCards.values());
         return values;
 
     }
