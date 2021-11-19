@@ -2,14 +2,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
+
+
     private String name;
     private Deck deck = new Deck();
     private List<String> cardInHand = new ArrayList<>();
-
-    int index;
-    String rank = " ";
-    private int points = 0;
-
+    private int score = 0;
 
     public Player(String name) {
         this.name = name;
@@ -19,31 +17,39 @@ public class Player {
     public void hand(Deck deck) {
         this.deck = deck;
         cardInHand.add(this.deck.getDeckOfCards().get(0));
-        points += deck.getValueOfCards().get(0);
-
-        cardInHand.add(this.deck.getDeckOfCards().get(1));
-         points += deck.getValueOfCards().get(1);
+        score += deck.getValueOfCards().get(0);
+        this.deck.deckOfCards.remove(this.deck.getDeckOfCards().get(0),deck.getValueOfCards().get(0));
 
 
-        this.deck.getDeckOfCards().get(index).contains(rank);
+        cardInHand.add(this.deck.getDeckOfCards().get(0));
+        score += deck.getValueOfCards().get(0);
+        this.deck.deckOfCards.remove(this.deck.getDeckOfCards().get(0),deck.getValueOfCards().get(0));
 
+    }
 
-        this.deck.getDeckOfCards().remove(0);
-        this.deck.getDeckOfCards().remove(0);
+    public void hit()
+    {
+        System.out.println("Hit");
+        cardInHand.add(this.deck.getDeckOfCards().get(0));
+        score += deck.getValueOfCards().get(0);
+        this.deck.deckOfCards.remove(this.deck.getDeckOfCards().get(0),deck.getValueOfCards().get(0));
+    }
 
-
+    public void stick()
+    {
+        System.out.println(" Stick");
     }
 
     public List<String> getCardInHand() {
         return cardInHand;
     }
 
-    public int getPoints() {
-        return points;
+    public int getScore() {
+        return score;
     }
 
-    public static void main(String[] args) {
-
-
+    public String getName() {
+        return name;
     }
+
 }
