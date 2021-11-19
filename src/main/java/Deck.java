@@ -6,10 +6,10 @@ public class Deck {
     private List<String> rank = List.of("two", "three", "four", "five", "six",
             "seven", "eight", "nine", "ten", "Jack", "Queen", "King", "Ace");
     private List<String> suits = List.of("Hearts", "Diamonds", "Clubs", "Spades");
-    Map<String,Integer> deckOfCards = new HashMap<>();
-    List<String> keys;
-    List<Integer> values;
-
+    private List<String> cards = new ArrayList<>();
+     Map<String,Integer> deckOfCards = new LinkedHashMap<>();
+    private List<String> keys;
+    private List<Integer> values;
 
 
     private String concat;
@@ -18,11 +18,9 @@ public class Deck {
 
 
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 13; j++)
-            {
-                int points = 0;
+            for (int j = 0; j < 13; j++) {
                 concat = rank.get(j) + " of " + suits.get(i);
-                deckOfCards.put(concat,0);
+                this.cards.add(concat);
 
             }
         }
@@ -30,77 +28,44 @@ public class Deck {
     }
 
     public void shuffle() {
+        Collections.shuffle(this.cards);
+    }
 
-        keys =  new ArrayList(deckOfCards.keySet());
-        Collections.shuffle(keys);
+    public void shuffledDeckOfCards() {
+        int rankValue = 0;
+        System.out.println(this.cards);
+        for (String card : this.cards) {
+            if (card.startsWith("two")) rankValue = 2;
+            if (card.startsWith("three")) rankValue = 3;
+            if (card.startsWith("four")) rankValue = 4;
+            if (card.startsWith("five")) rankValue = 5;
+            if (card.startsWith("six")) rankValue = 6;
+            if (card.startsWith("seven")) rankValue = 7;
+            if (card.startsWith("eight")) rankValue = 8;
+            if (card.startsWith("nine")) rankValue = 9;
+            if (card.startsWith("ten")) rankValue = 10;
+            if (card.startsWith("Jack")) rankValue = 10;
+            if (card.startsWith("Queen")) rankValue = 10;
+            if (card.startsWith("King")) rankValue = 10;
+            if (card.startsWith("Ace")) rankValue = 11;
 
-        for(String card:keys)
-        {
-            int points = 0;
-
-            if(card.contains("two")) points=2;
-            else if(card.contains("three")) points=3;
-            else if(card.contains("four")) points=4;
-            else if(card.contains("five")) points=5;
-            else if(card.contains("six")) points=6;
-            else if(card.contains("seven")) points=7;
-            else if(card.contains("eight")) points=8;
-            else if(card.contains("nine")) points=9;
-            else if(card.contains("ten")) points=10;
-            else if(card.contains("Jack")) points=10;
-            else if(card.contains("Queen")) points=10;
-            else if(card.contains("King")) points=10;
-            else if(card.contains("Ace")) points=11;
-            deckOfCards.put(card,points);
+            this.deckOfCards.put(card, rankValue);
+            System.out.print(this.deckOfCards.keySet() + " :" + this.deckOfCards.values() + " ");
         }
-
-
-
 
 
     }
 
     public List<String> getDeckOfCards() {
+        keys= new ArrayList<>(deckOfCards.keySet());
         return keys;
-
     }
-
-    public List<Integer> getValueOfCards()
-    {
-        values = new ArrayList(deckOfCards.values());
+    public List<Integer> getValueOfCards() {
+        values = new ArrayList<>(deckOfCards.values());
         return values;
-
     }
-
-    public static void main(String[] args) {
-
-        Deck deck = new Deck();
-        deck.deck();
-
-        deck.shuffle();
-        System.out.println(deck.getDeckOfCards());
-        System.out.println(deck.getValueOfCards());
-
-        Player player1 = new Player("Phiny");
-        player1.hand(deck);
-        System.out.println(player1.getCardInHand());
-        System.out.println(player1.getPoints());
-        System.out.println(deck.getDeckOfCards());
-
-        Player player2 = new Player("Ray");
-        player2.hand(deck);
-        System.out.println(player2.getCardInHand());
-        System.out.println(player2.getPoints());
-        System.out.println(deck.getDeckOfCards());
-
-        Player player3 = new Player("Grey");
-        player3.hand(deck);
-        System.out.println(player3.getCardInHand());
-        System.out.println(player3.getPoints());
-
-
-
-    }
-
 
 }
+
+
+
